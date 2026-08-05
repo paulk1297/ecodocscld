@@ -29,8 +29,8 @@ jobs:
      - name: FTP_Deploy
     uses: SamKirkland/FTP-Deploy-Action@v4.3.5
 with:
-server: ${{ secrets.CPANEL_SERVER }}
-username: ${{ secrets.CPANEL_USERNAME }}
+server: ${{ secrets.CPANEL_HOST }}
+username: ${{ secrets.CPANEL_USER }}
 password: ${{ secrets.CPANEL_PASSWORD }}
 local-dir: ./
 server-dir: /public_html/
