@@ -1,0 +1,24 @@
+# =====================================================================
+#  ECOWASmail Admin — Apache (dossier public/ = racine web)
+# =====================================================================
+
+# Fichier servi par défaut
+DirectoryIndex index.php
+
+# Pas de listing des dossiers
+Options -Indexes
+
+# Bloque l'accès aux fichiers cachés (.env, .htaccess, .git…)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Force l'UTF-8 par défaut
+AddDefaultCharset UTF-8
+
+# Quelques en-têtes de sécurité de base
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

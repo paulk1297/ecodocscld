@@ -1,0 +1,17 @@
+# Secrets
+.env
+
+# Dépendances
+/vendor/
+
+# Base SQLite locale (test uniquement)
+/database/
+*.sqlite
+
+# Logs & temporaires
+*.log
+.DS_Store
+Thumbs.db
+
+# Ancien code (référence uniquement)
+/legacy/

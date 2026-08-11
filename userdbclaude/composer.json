@@ -1,0 +1,22 @@
+{
+    "name": "ecowas/userdb-admin",
+    "description": "Panneau d'administration des comptes ECOWASmail (refonte propre du legacy tableup.php).",
+    "type": "project",
+    "require": {
+        "php": ">=8.0",
+        "ext-pdo": "*",
+        "ext-mbstring": "*",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
