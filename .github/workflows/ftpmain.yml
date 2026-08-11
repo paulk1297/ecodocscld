@@ -1,22 +1,27 @@
-name: FTP Deploy
-
+name: WebDAV Deploy
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: /public_html/
+ 
+      - name: Install rclone
+        run: curl https://rclone.org/install.sh | sudo bash
+ 
+      - name: Deploy via WebDAV (Web Disk cPanel, port 2078)
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          OBSCURED_PASS=$(rclone obscure "$FTP_PASSWORD")
+          rclone sync . ":webdav,url='https://${FTP_SERVER}:2078',vendor=other,user='${FTP_USERNAME}',pass='${OBSCURED_PASS}':/public_html" \
+            --exclude ".git/**" \
+            --exclude ".github/**" \
+            --no-check-certificate \
+            --transfers 4 --checkers 4 \
+            -v
